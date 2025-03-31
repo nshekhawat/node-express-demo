@@ -9,7 +9,7 @@ let courses = [
 ];
 
 router.get('/', (req, res) => {
-    res.send(JSON.stringify(courses));
+    res.send(courses);
 });
 
 router.get('/:id', (req, res) => {
@@ -52,10 +52,10 @@ router.delete('/:id', (req, res) => {
 });
 
 function validateCourse(course) {
-    const schema = {
+    const schema = Joi.object({
         name: Joi.string().min(3).required()
-    };
-    return Joi.validate(course, schema);
+    });
+    return schema.validate(course);
 }
 
 module.exports = router;
